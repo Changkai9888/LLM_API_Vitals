@@ -1,0 +1,59 @@
+# 模型体检台 / LLM API Vitals 配置文件
+# 第一次运行前，请先填写 base_url、model，以及 api_key_env 或 api_key。
+# 如果这些字段仍是占位值，程序会直接报错，不会开始调用 API。
+
+# OpenAI 兼容接口地址。
+# 示例: "https://api.example.com/v1"
+base_url: "your-api-base-url"
+
+# 要测试的模型名称。
+# 示例: "your-model-name"
+model: "your-model-name"
+
+# 推荐方式：把密钥放到环境变量里，然后在这里填写环境变量名。
+# Windows PowerShell 示例: $env:YOUR_API_KEY_ENV_NAME="你的真实密钥"
+api_key_env: "YOUR_API_KEY_ENV_NAME"
+
+# 不推荐把真实密钥写进配置文件。只有在临时测试时才填写。
+api_key: ""
+
+# 默认测试用例。
+# basic_json: 最小 JSON 稳定性
+# noisy_json: 干扰文本下的 JSON 抽取
+# code_generation: JSON 包裹代码生成
+# long_context: 长上下文对结构化输出的干扰
+cases:
+  - basic_json
+  - noisy_json
+  - code_generation
+  - long_context
+
+# 默认输出模式。
+# prompt_only: 只靠提示词约束 JSON
+# json_object: 使用 response_format={"type":"json_object"}
+# json_schema_openai: 使用 OpenAI 标准 json_schema
+# json_schema_legacy: 使用兼容接口常见的旧式 schema 参数
+modes:
+  - prompt_only
+  - json_object
+  - json_schema_openai
+  - json_schema_legacy
+
+# 每个“用例 x 输出模式”重复测试次数。
+trials: 1
+
+# 采样温度。稳定性测试建议保持较低。
+temperature: 0.1
+
+# 单次响应最大 token 数。
+max_tokens: 3000
+
+# 单次 API 请求超时时间，单位秒。
+timeout_sec: 300
+
+# 兼容接口需要额外请求字段时填写一行 JSON；不需要就留空。
+# 示例: "{\"reasoning_effort\":\"high\"}"
+extra_body_json: ""
+
+# 自定义输出目录；留空时自动写入 model_api_eval/runs/<eval_id>/。
+out_dir: ""
