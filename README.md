@@ -3,6 +3,8 @@
 
 这是一个可独立迁移的通用大模型 API 稳定性评估包，先填写 `model_api_eval/config.yaml`，再运行 `python -m model_api_eval.run_eval`，它会按默认 4 个测试用例×4种输出模式 = 16 次 API 调用目标接口，并在 `model_api_eval/runs/` 生成 JSON 结果、分析报告文件report.md 和 模式对比表summary.csv；默认用例覆盖最小 JSON、干扰文本抽取、代码生成、长上下文四个截面，用来判断 prompt-only、json_object、json_schema 等调用方式哪种更稳。
 
+我（们）做的这是一个，中文、零依赖、傻瓜式、专测 OpenAI 兼容 API 的结构化输出稳定性小体检包（不是很严肃的那一种，至少现在来看是这样的）。
+
 # 通用大模型 API 元能力评估包：
 中文名：模型体检台
 英文名：LLM_API_Vitals
